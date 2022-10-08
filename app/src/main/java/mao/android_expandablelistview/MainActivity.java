@@ -68,25 +68,25 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener()
-        {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id)
-            {
-                toastShow("点击了第" + (groupPosition + 1) + "个组的第" + (childPosition + 1) + "项");
-                return false;
-            }
-        });
+//        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener()
+//        {
+//            @Override
+//            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id)
+//            {
+//                toastShow("点击了第" + (groupPosition + 1) + "个组的第" + (childPosition + 1) + "项");
+//                return false;
+//            }
+//        });
 
-        expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
-        {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                toastShow("长按：" + (position + 1));
-                return true;
-            }
-        });
+//        expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+//        {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
+//            {
+//                toastShow("长按：" + (position + 1));
+//                return true;
+//            }
+//        });
 
     }
 

@@ -1,13 +1,18 @@
 package mao.android_expandablelistview.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+
+import androidx.appcompat.app.AlertDialog;
 
 import java.util.List;
 
@@ -196,6 +201,44 @@ public class MyBaseExpandableListAdapter extends BaseExpandableListAdapter
         }
         viewHolderItem.img_icon.setImageResource(ItemData.get(groupPosition).get(childPosition).getIcon());
         viewHolderItem.tv_name.setText(ItemData.get(groupPosition).get(childPosition).getName());
+
+        convertView.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                Log.d("adapter", "onLongClick: ");
+
+                new AlertDialog.Builder(context)
+                        .setTitle("删除提示")
+                        .setMessage("是否删除第" + (groupPosition + 1) + "个组的第" + (childPosition + 1) + "项?")
+                        .setPositiveButton("确定删除", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                ItemData.get(groupPosition).remove(childPosition);
+                                MyBaseExpandableListAdapter.this.notifyDataSetChanged();
+                                toastShow("已删除");
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .create()
+                        .show();
+
+                return true;
+            }
+        });
+
+        convertView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                toastShow("点击了第" + (groupPosition + 1) + "个组的第" + (childPosition + 1) + "项");
+            }
+        });
+
         return convertView;
     }
 
@@ -222,5 +265,16 @@ public class MyBaseExpandableListAdapter extends BaseExpandableListAdapter
     {
         private ImageView img_icon;
         private TextView tv_name;
+    }
+
+
+    /**
+     * 显示消息
+     *
+     * @param message 消息
+     */
+    private void toastShow(String message)
+    {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 }
